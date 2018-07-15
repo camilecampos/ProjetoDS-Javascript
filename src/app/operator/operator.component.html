@@ -1,39 +1,39 @@
 <h1>Angular 4 CRUD Example</h1>
 <h3 *ngIf="operatorIdToUpdate; else create">
-   Update Article for Id: {{operatorIdToUpdate}}
+   Update Operator for Id: {{operatorIdToUpdate}}
 </h3>
 <ng-template #create>
-   <h3> Create New Article </h3>
+   <h3> Create New Operator </h3>
 </ng-template>
 <div>
- <form [formGroup]="operatorForm" (ngSubmit)="onArticleFormSubmit()">
+ <form [formGroup]="operatorForm" (ngSubmit)="onOperatorFormSubmit()">
   <table>
-    <tr><td>Enter Title</td><td><input formControlName="title">
-	  <label *ngIf="operatorForm.get('title').invalid && processValidation" [ngClass] = "'error'"> Title is required. </label>
+    <tr><td>Enter Name</td><td><input formControlName="name">
+	  <label *ngIf="operatorForm.get('name').invalid && processValidation" [ngClass] = "'error'"> Name is required. </label>
     </td></tr>
-    <tr><td>Enter Category</td><td><input formControlName="category">
-	  <label *ngIf="operatorForm.get('category').invalid && processValidation" [ngClass] = "'error'"> Category is required. </label>
+    <tr><td>Enter Category</td><td><input formControlName="email">
+	  <label *ngIf="operatorForm.get('email').invalid && processValidation" [ngClass] = "'error'"> E-mail is required. </label>
     </td></tr>
     <tr><td colspan="2">
-	  <button *ngIf="!operatorIdToUpdate">CREATE</button>
+	  <button >CREATE</button>
 	  <button *ngIf="operatorIdToUpdate">UPDATE</button>
-	  <button (click)="backToCreateArticle()" *ngIf="operatorIdToUpdate">Go Back</button>
+	  <button (click)="backToCreateOperator()" *ngIf="operatorIdToUpdate">Go Back</button>
     </td></tr>
   </table>
  </form>
  <br/>
  <div *ngIf="statusCode; else processing">
    <div *ngIf="statusCode === 201" [ngClass] = "'success'">
-	    Article added successfully.
+	    Operator added successfully.
    </div>
    <div *ngIf="statusCode === 409" [ngClass] = "'success'">
-        Article already exists.
+        Operator already exists.
    </div>
    <div *ngIf="statusCode === 200" [ngClass] = "'success'">
-        Article updated successfully.
+        Operator updated successfully.
    </div>
    <div *ngIf="statusCode === 204" [ngClass] = "'success'">
-        Article deleted successfully.
+        Operator deleted successfully.
    </div>
    <div *ngIf="statusCode === 500" [ngClass] = "'error'">
         Internal Server Error.
@@ -43,12 +43,12 @@
 	<img *ngIf="requestProcessing" src="assets/images/loading.gif">
  </ng-template>
 </div>
-<h3>Article Details</h3>
+<h3>Operator Details</h3>
 <table>
   <tr><th> Id</th> <th>Title</th><th>Category</th><th></th><th></th></tr>
-  <tr *ngFor="let operator of allArticles" >
-        <td>{{operator.id}}</td> <td>{{operator.title}}</td> <td>{{operator.category}}</td>
-	<td><button type="button" (click)="loadArticleToEdit(operator.id)">Edit</button> </td>
-	<td><button type="button" (click)="deleteArticle(operator.id)">Delete</button></td>
+  <tr *ngFor="let operator of allOperators" >
+        <td>{{operator.id}}</td> <td>{{operator.email}}</td> <td>{{operator.name}}</td>
+	<td><button type="button" (click)="loadOperatorToEdit(operator.id)">Edit</button> </td>
+	<td><button type="button" (click)="deleteOperator(operator.id)">Delete</button></td>
   </tr>
 </table>
