@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { OperatorComponent } from './operator/operator.component';
 import { OperatorService } from './operator/operator.service';
+import { ArquivosComponent } from './arquivos/arquivos.component';
 
 const appRoutes: Routes = [
   { path: 'operator', component: OperatorComponent},
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AppComponent,
-    OperatorComponent
+    OperatorComponent,
+    ArquivosComponent
   ],
   providers: [
     OperatorService

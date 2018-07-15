@@ -1,54 +1,99 @@
 <h1>Angular 4 CRUD Example</h1>
 <h3 *ngIf="operatorIdToUpdate; else create">
-   Update Operator for Id: {{operatorIdToUpdate}}
+  Update Operator for Id: {{operatorIdToUpdate}}
 </h3>
 <ng-template #create>
-   <h3> Create New Operator </h3>
+  <h3> Create New Operator </h3>
 </ng-template>
 <div>
- <form [formGroup]="operatorForm" (ngSubmit)="onOperatorFormSubmit()">
-  <table>
-    <tr><td>Enter Name</td><td><input formControlName="name">
-	  <label *ngIf="operatorForm.get('name').invalid && processValidation" [ngClass] = "'error'"> Name is required. </label>
-    </td></tr>
-    <tr><td>Enter Category</td><td><input formControlName="email">
-	  <label *ngIf="operatorForm.get('email').invalid && processValidation" [ngClass] = "'error'"> E-mail is required. </label>
-    </td></tr>
-    <tr><td colspan="2">
-	  <button >CREATE</button>
-	  <button *ngIf="operatorIdToUpdate">UPDATE</button>
-	  <button (click)="backToCreateOperator()" *ngIf="operatorIdToUpdate">Go Back</button>
-    </td></tr>
-  </table>
- </form>
- <br/>
- <div *ngIf="statusCode; else processing">
-   <div *ngIf="statusCode === 201" [ngClass] = "'success'">
-	    Operator added successfully.
-   </div>
-   <div *ngIf="statusCode === 409" [ngClass] = "'success'">
-        Operator already exists.
-   </div>
-   <div *ngIf="statusCode === 200" [ngClass] = "'success'">
-        Operator updated successfully.
-   </div>
-   <div *ngIf="statusCode === 204" [ngClass] = "'success'">
-        Operator deleted successfully.
-   </div>
-   <div *ngIf="statusCode === 500" [ngClass] = "'error'">
-        Internal Server Error.
-   </div>
- </div>
- <ng-template #processing>
-	<img *ngIf="requestProcessing" src="assets/images/loading.gif">
- </ng-template>
+  <form [formGroup]="operatorForm" (ngSubmit)="onOperatorFormSubmit()">
+    <table>
+      <tr>
+        <td>Nome</td>
+        <td>
+          <input formControlName="name">
+          <label *ngIf="operatorForm.get('name').invalid && processValidation" [ngClass]="'error'"> Name é obrigatório </label>
+        </td>
+      </tr>
+      <tr>
+        <td>Login</td>
+        <td>
+          <input formControlName="login">
+          <label *ngIf="operatorForm.get('login').invalid && processValidation" [ngClass]="'error'"> Login é obrigatório </label>
+        </td>
+      </tr>
+      <tr>
+        <td>Senha</td>
+        <td>
+          <input formControlName="password">
+          <label *ngIf="operatorForm.get('password').invalid && processValidation" [ngClass]="'error'"> Senha é obrigatório </label>
+        </td>
+      </tr>
+      <tr>
+        <td>E-mail</td>
+        <td>
+          <input formControlName="email">
+          <label *ngIf="operatorForm.get('email').invalid && processValidation" [ngClass]="'error'"> E-mail é obrigatório </label>
+        </td>
+      </tr>
+      <tr>
+        <td>Tipo de Operador</td>
+        <td>
+          <input formControlName="isAdmin">
+          <label *ngIf="operatorForm.get('isAdmin').invalid && processValidation" [ngClass]="'error'"> Tipo é obrigatório </label>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button>CREATE</button>
+          <button *ngIf="operatorIdToUpdate">UPDATE</button>
+          <button (click)="backToCreateOperator()" *ngIf="operatorIdToUpdate">Voltar</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <br/>
+  <div *ngIf="statusCode; else processing">
+    <div *ngIf="statusCode === 201" [ngClass]="'success'">
+      Operator adicionado com sucesso
+    </div>
+    <div *ngIf="statusCode === 409" [ngClass]="'success'">
+      Operator já existente
+    </div>
+    <div *ngIf="statusCode === 200" [ngClass]="'success'">
+      Operator alterado com sucesso
+    </div>
+    <div *ngIf="statusCode === 204" [ngClass]="'success'">
+      Operator removido
+    </div>
+    <div *ngIf="statusCode === 500" [ngClass]="'error'">
+      Internal Server Error.
+    </div>
+  </div>
+  <ng-template #processing>
+    <img *ngIf="requestProcessing" src="assets/images/loading.gif">
+  </ng-template>
 </div>
-<h3>Operator Details</h3>
+<h3>Operadores</h3>
 <table>
-  <tr><th> Id</th> <th>Title</th><th>Category</th><th></th><th></th></tr>
-  <tr *ngFor="let operator of allOperators" >
-        <td>{{operator.id}}</td> <td>{{operator.email}}</td> <td>{{operator.name}}</td>
-	<td><button type="button" (click)="loadOperatorToEdit(operator.id)">Edit</button> </td>
-	<td><button type="button" (click)="deleteOperator(operator.id)">Delete</button></td>
+  <tr>
+    <th>Nome</th>
+    <th>Login</th>
+    <th>Email</th>
+    <th>Tipo</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let operator of allOperators">
+    <td>{{operator.id}}</td>
+    <td>{{operator.email}}</td>
+    <td>{{operator.name}}</td>
+    <td>{{operator.isAdmin}}</td>
+    <td>
+      <button type="button" (click)="loadOperatorToEdit(operator.id)">Edit</button>
+    </td>
+    <td>
+      <button type="button" (click)="deleteOperator(operator.id)">Delete</button>
+    </td>
   </tr>
 </table>
